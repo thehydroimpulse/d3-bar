@@ -8,7 +8,7 @@
 ## Installation
 
 ```
-$ npm install tj/d3-bar
+$ npm install d3-bar
 ```
 
 ## Developing
