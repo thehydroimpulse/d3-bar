@@ -3,15 +3,13 @@
 
  D3 bar graph. See source for examples and documentation.
 
+![](assets/screen.png)
+
 ## Installation
 
 ```
 $ npm install tj/d3-bar
 ```
-
-## Usage
-
-![](assets/screen.png)
 
 ## Developing
 
