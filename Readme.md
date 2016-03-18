@@ -11,7 +11,7 @@ $ npm install tj/d3-bar
 
 ## Usage
 
-![](assets/screen.padding)
+![](assets/screen.png)
 
 ## Developing
 
