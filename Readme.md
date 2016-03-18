@@ -7,6 +7,20 @@
 
 ![](assets/screen.padding)
 
+## Developing
+
+Build:
+
+```
+$ make build
+```
+
+Start dev server:
+
+```
+$ make start
+```
+
 ## Badges
 
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
