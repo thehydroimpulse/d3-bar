@@ -2,6 +2,7 @@
   "name": "d3-bar",
   "version": "1.0.0",
   "description": "D3 bar chart",
+  "author": "TJ Holowaychuk <tj@tjholowaychuk.com>",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +18,9 @@
       "babelify"
     ]
   },
-  "author": "TJ Holowaychuk <tj@tjholowaychuk.com>",
+  "scripts": {
+    "prepublish": "make build"
+  },
   "license": "MIT",
   "devDependencies": {
     "react-fatigue-dev": "github:tj/react-fatigue-dev#49fec29"
