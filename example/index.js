@@ -45,7 +45,8 @@ class App extends Component {
   }
 
   changeData = _ => {
-    this.a.update(gen(24))
+    const n = Math.max(15, Math.random() * 30 | 0)
+    this.a.update(gen(n))
     this.b.update(gen(10))
     this.c.update(gen(24))
   }

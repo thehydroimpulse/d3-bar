@@ -10,7 +10,7 @@ const defaults = {
   target: '#chart',
 
   // width of chart
-  width: 450,
+  width: 500,
 
   // height of chart
   height: 130,
@@ -28,7 +28,10 @@ const defaults = {
   barPadding: 13,
 
   // nice round values for axis
-  nice: true
+  nice: true,
+
+  // easing function for transitions
+  ease: 'cubic'
 }
 
 /**
@@ -51,11 +54,7 @@ export default class BarChart {
    */
 
   set(config) {
-    for (let k in defaults) {
-      this[k] = config[k] == null
-        ? defaults[k]
-        : config[k]
-    }
+    Object.assign(this, defaults, config)
   }
 
   /**
@@ -119,7 +118,7 @@ export default class BarChart {
    */
 
   renderAxis(data, options) {
-    const { chart, x, y, xAxis, yAxis, nice } = this
+    const { chart, x, y, xAxis, yAxis, nice, ease } = this
 
     const xd = x.domain(d3.extent(data, d => d.time))
     const yd = y.domain(d3.extent(data, d => d.value))
@@ -130,7 +129,7 @@ export default class BarChart {
     }
 
     const c = options.animate
-      ? chart.transition()
+      ? chart.transition().ease(ease)
       : chart
 
     c.select('.x.axis').call(xAxis)
@@ -142,7 +141,7 @@ export default class BarChart {
    */
 
   renderCols(data) {
-    const { chart, x, y, barPadding } = this
+    const { chart, x, y, ease, barPadding } = this
     const [w, h] = this.dimensions()
 
     const colWidth = (w / data.length) - barPadding
@@ -156,7 +155,9 @@ export default class BarChart {
       .attr('class', 'column')
 
     // update
-    column.attr('x', d => x(d.time))
+    column.transition()
+      .ease(ease)
+      .attr('x', d => x(d.time))
       .attr('rx', colWidth / 2)
       .attr('ry', colWidth / 2)
       .attr('width', colWidth)
@@ -173,7 +174,7 @@ export default class BarChart {
    */
 
   renderBars(data) {
-    const { chart, x, y, barPadding } = this
+    const { chart, x, y, ease, barPadding } = this
     const [w, h] = this.dimensions()
 
     const barWidth = (w / data.length) - barPadding
@@ -187,13 +188,14 @@ export default class BarChart {
       .attr('class', 'bar')
 
     // update
-    bar.attr('x', d => x(d.time))
+    bar.transition()
+      .ease(ease)
+      .attr('x', d => x(d.time))
       .attr('rx', barWidth / 2)
       .attr('ry', barWidth / 2)
       .attr('width', barWidth)
-      .transition()
-        .attr('y', d => y(d.value))
-        .attr('height', d => h - y(d.value))
+      .attr('y', d => y(d.value))
+      .attr('height', d => h - y(d.value))
 
     // exit
     bar.exit()
