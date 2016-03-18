@@ -1,4 +1,8 @@
 
- If you would like to request or contribute a new feature, it will likely be denied. This package is simple by-design, for my specific use-case. I recommend using d3 directly if this package does not satisify your needs. Bugfixes are of course welcome :)
+Before opening an issue, please consider:
 
- Answer to "publish to npm": no, just use GitHub and a commit SHA.
+- __New features__ will likely be denied, as this is for my specific use-case (fork if you like)
+- I will not __publish to NPM__, just use GitHub and a commit SHA
+- I will not accept arbitrary stylistic changes, they are only noise
+- Thanks :)
+
