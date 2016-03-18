@@ -3,6 +3,12 @@
 
  D3 bar graph. See source for examples and documentation.
 
+## Installation
+
+```
+$ npm install tj/d3-bar
+```
+
 ## Usage
 
 ![](assets/screen.padding)
