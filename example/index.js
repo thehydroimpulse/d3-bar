@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Chart from '../index'
+import Tip from 'd3-tipy'
 import offset from 'offset'
 import d3 from 'd3'
 
@@ -18,26 +19,11 @@ const gen = n => {
   return data
 }
 
-class Tip {
-  show(d) {
-    const el = document.querySelector('#tip')
-    const to = offset(el)
-    const o = offset(event.target)
-    el.style.top = o.top - to.height + 'px'
-    el.style.left = o.left - (to.width / 2) + 'px'
-    el.textContent = d3.format(',')(d.value)
-    el.classList.add('show')
-  }
-
-  hide() {
-    const el = document.querySelector('#tip')
-    el.classList.remove('show')
-  }
-}
-
 class App extends Component {
   componentDidMount() {
-    const tip = new Tip
+    const tip = new Tip({
+      format: d3.format(',')
+    })
 
     this.a = new Chart({
       target: this.refs.a,

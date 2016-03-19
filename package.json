@@ -20,6 +20,7 @@
     ]
   },
   "devDependencies": {
+    "d3-tipy": "^1.0.0",
     "offset": "0.0.1",
     "react-fatigue-dev": "github:tj/react-fatigue-dev#49fec29"
   },
