@@ -28,7 +28,7 @@ const defaults = {
   barPadding: 13,
 
   // nice round values for axis
-  nice: true,
+  nice: false,
 
   // easing function for transitions
   ease: 'linear',
