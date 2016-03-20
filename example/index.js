@@ -45,7 +45,8 @@ class App extends Component {
       barPadding: 15,
       tickSize: 3,
       mouseover: tip.show,
-      mouseout: tip.hide
+      mouseout: tip.hide,
+      ease: 'elastic'
     })
 
     this.a.render(gen(24))
