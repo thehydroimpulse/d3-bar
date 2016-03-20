@@ -31,7 +31,7 @@ const defaults = {
   nice: true,
 
   // easing function for transitions
-  ease: 'cubic',
+  ease: 'linear',
 
   // mouseover callback for tooltips or value display
   mouseover: _ => {},
