@@ -33,6 +33,9 @@ const defaults = {
   // easing function for transitions
   ease: 'linear',
 
+  // type of bar: rounded-rect, rect
+  type: 'rounded',
+
   // mouseover callback for tooltips or value display
   mouseover: _ => {},
 
@@ -171,7 +174,7 @@ export default class BarChart {
    */
 
   renderBars(data) {
-    const { chart, x, y, ease, barPadding } = this
+    const { chart, x, y, ease, barPadding, type } = this
     const [w, h] = this.dimensions()
 
     const width = w / data.length
@@ -188,8 +191,8 @@ export default class BarChart {
     // update
     column.transition().ease(ease)
       .attr('x', d => x(d.time))
-      .attr('rx', barWidth / 2)
-      .attr('ry', barWidth / 2)
+      .attr('rx', type == 'rounded' ? barWidth / 2 : 0)
+      .attr('ry', type == 'rounded' ? barWidth / 2 : 0)
       .attr('width', barWidth)
       .attr('height', h)
 
@@ -207,8 +210,8 @@ export default class BarChart {
     bar.transition().ease(ease)
       .attr('x', d => x(d.time))
       .attr('y', d => y(d.value))
-      .attr('rx', barWidth / 2)
-      .attr('ry', barWidth / 2)
+      .attr('rx', type == 'rounded' ? barWidth / 2 : 0)
+      .attr('ry', type == 'rounded' ? barWidth / 2 : 0)
       .attr('width', barWidth)
       .attr('height', d => h - y(d.value))
 

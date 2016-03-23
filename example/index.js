@@ -49,9 +49,18 @@ class App extends Component {
       ease: 'elastic'
     })
 
+    this.d = new Chart({
+      target: this.refs.d,
+      mouseover: tip.show,
+      mouseout: tip.hide,
+      barPadding: 5,
+      type: 'rect'
+    })
+
     this.a.render(gen(24))
     this.b.render(gen(10))
     this.c.render(gen(24))
+    this.d.render(gen(24))
   }
 
   componentDidUpdate() {
@@ -63,6 +72,7 @@ class App extends Component {
     this.a.update(gen(n))
     this.b.update(gen(10))
     this.c.update(gen(24))
+    this.d.update(gen(24))
   }
 
   render() {
@@ -87,6 +97,12 @@ class App extends Component {
         <h3>Kitchen Sink</h3>
         <p>Chart with most settings configured.</p>
         <svg ref="c" className="chart"></svg>
+      </section>
+
+      <section>
+        <h3>Histogram</h3>
+        <p>Chart with rect type and colors.</p>
+        <svg ref="d" className="chart"></svg>
       </section>
 
       <section>
