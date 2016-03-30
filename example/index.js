@@ -54,7 +54,8 @@ class App extends Component {
       mouseover: tip.show,
       mouseout: tip.hide,
       barPadding: 5,
-      type: 'rect'
+      type: 'rect',
+      axis: false
     })
 
     this.a.render(gen(24))

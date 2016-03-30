@@ -18,6 +18,9 @@ const defaults = {
   // margin
   margin: { top: 15, right: 0, bottom: 35, left: 60 },
 
+  // enable axis
+  axis: true,
+
   // axis padding
   axisPadding: 5,
 
@@ -44,6 +47,12 @@ const defaults = {
 }
 
 /**
+ * Zeroed margin.
+ */
+
+const zeroMargin = { top: 0, right: 0, bottom: 0, left: 0 }
+
+/**
  * BarChart.
  */
 
@@ -55,6 +64,7 @@ export default class BarChart {
 
   constructor(config) {
     this.set(config)
+    if (!this.axis) this.margin = zeroMargin
     this.init()
   }
 
@@ -102,7 +112,7 @@ export default class BarChart {
    */
 
   init() {
-    const { target, width, height, margin, axisPadding, tickSize } = this
+    const { target, width, height, margin, axisPadding, tickSize, axis } = this
     const [w, h] = this.dimensions()
 
     this.chart = d3.select(target)
@@ -133,15 +143,17 @@ export default class BarChart {
       .tickPadding(8)
       .tickSize(tickSize)
 
-    this.chart.append('g')
-      .attr('class', 'x axis')
-      .attr('transform', `translate(0, ${h+axisPadding})`)
-      .call(this.xAxis)
+    if (axis) {
+      this.chart.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', `translate(0, ${h+axisPadding})`)
+        .call(this.xAxis)
 
-    this.chart.append('g')
-      .attr('class', 'y axis')
-      .attr('transform', `translate(${-axisPadding}, 0)`)
-      .call(this.yAxis)
+      this.chart.append('g')
+        .attr('class', 'y axis')
+        .attr('transform', `translate(${-axisPadding}, 0)`)
+        .call(this.yAxis)
+    }
 
     this.xBisect = d3.bisector(d => d.time).left
   }
