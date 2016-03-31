@@ -33,6 +33,12 @@ const defaults = {
   // nice round values for axis
   nice: false,
 
+  // color range
+  color: null,
+
+  // color interpolation
+  colorInterpolate: d3.interpolateHcl,
+
   // easing function for transitions
   ease: 'linear',
 
@@ -113,6 +119,7 @@ export default class BarChart {
 
   init() {
     const { target, width, height, margin, axisPadding, tickSize, axis } = this
+    const { color, colorInterpolate } = this
     const [w, h] = this.dimensions()
 
     this.chart = d3.select(target)
@@ -122,6 +129,12 @@ export default class BarChart {
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
         .on('mouseover', _ => this.onMouseOver())
         .on('mouseleave', _ => this.onMouseLeave())
+
+    if (color) {
+      this.color = d3.scale.linear()
+        .interpolate(colorInterpolate)
+        .range(color)
+    }
 
     this.x = d3.time.scale()
       .range([0, w])
@@ -163,10 +176,13 @@ export default class BarChart {
    */
 
   renderAxis(data, options) {
-    const { chart, x, y, xAxis, yAxis, nice, ease } = this
+    const { chart, x, y, xAxis, yAxis, nice, ease, color } = this
 
+    const yExtent = d3.extent(data, d => d.value)
     const xd = x.domain(d3.extent(data, d => d.time))
-    const yd = y.domain(d3.extent(data, d => d.value))
+    const yd = y.domain(yExtent)
+
+    if (color) color.domain(yExtent)
 
     if (nice) {
       xd.nice()
@@ -186,7 +202,7 @@ export default class BarChart {
    */
 
   renderBars(data) {
-    const { chart, x, y, ease, barPadding, type } = this
+    const { chart, x, y, ease, barPadding, type, color } = this
     const [w, h] = this.dimensions()
 
     const width = w / data.length
@@ -226,6 +242,8 @@ export default class BarChart {
       .attr('ry', type == 'rounded' ? barWidth / 2 : 0)
       .attr('width', barWidth)
       .attr('height', d => h - y(d.value))
+
+    if (color) bar.style('fill', d => color(d.value))
 
     // exit
     bar.exit().remove()

@@ -46,7 +46,8 @@ class App extends Component {
       tickSize: 3,
       mouseover: tip.show,
       mouseout: tip.hide,
-      ease: 'elastic'
+      ease: 'elastic',
+      color: ['RGB(0, 177, 240)', 'rgb(243, 43, 101)']
     })
 
     this.d = new Chart({
