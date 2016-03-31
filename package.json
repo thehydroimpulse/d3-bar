@@ -1,6 +1,6 @@
 {
   "name": "d3-bar",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "D3 bar chart",
   "author": "TJ Holowaychuk <tj@tjholowaychuk.com>",
   "main": "build/index.js",
